@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Giphy</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron" style="display: flex;justify-content: center;flex-direction: column;">
+            <input type="text" placeholder="Enter the giphy name here" id="giphy">
+            <br>
+            <input type="text" name="" id="select" placeholder="You can only choose up to 25">
+            <br>
+            <button id="search" class="btn btn-danger" style="margin-left: 10px;">Search for Giphy</button>
+        </div>
+        <div id="display">
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+    <script type="text/javascript">
+
+    var APIkey = "1Ratm3vdWVl4cwCFp3cLArlNMfsynrvy";
+    $('#search').on('click', function(){
+        var inputValue = $('#giphy').val();
+        document.getElementById('giphy').value = '';
+        var select = $('#select').val();
+        $.ajax({
+            url: "http://api.giphy.com/v1/gifs/search",
+            method: 'GET',
+            dataType: 'json',
+            data:{
+                q: inputValue,
+                api_key : APIkey
+            }
+        }).done(function(response){
+            function count(){
+                for(let i = 0;i < parseInt(select);i ++){
+                    var img = $('<img />').attr('src',response.data[i].images.original.url);
+                    $('#display').append(img);
+                }
+            };
+            count();
+        });
+    });
+    </script>
+</body>
+
+</html>
