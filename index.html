@@ -10,12 +10,11 @@
 
 <body>
     <div class="container">
-        <div class="jumbotron" style="display: flex;justify-content: center;flex-direction: column;">
-            <input type="text" placeholder="Enter the giphy name here" id="giphy">
-            <br>
-            <input type="text" name="" id="select" placeholder="You can only choose up to 25">
-            <br>
-            <button id="search" class="btn btn-danger" style="margin-left: 10px;">Search for Giphy</button>
+        <div class="jumbotron" style="display: flex;justify-content: center;flex-direction: column; align-items: center;">
+            <input type="text" placeholder="Enter the giphy name here" id="giphy" style="width: 400px; margin: 10px;">
+            <input type="text" name="" id="select" placeholder="You can only choose up to 25" style="width: 400px; margin: 10px;">
+            <button id="search" class="btn btn-danger" style="margin-left: 10px;" style="margin: 10px;">Search for Giphy</button>
+            <button id="reset" class="btn btn-warning" style="margin: 10px;">Reset</button>
         </div>
         <div id="display">
         </div>
@@ -28,11 +27,21 @@
     <script type="text/javascript">
 
     var APIkey = "1Ratm3vdWVl4cwCFp3cLArlNMfsynrvy";
+    var inputValue = $('#giphy').val();
+    var select = $('#select').val();
+    var reset = function(){
+            document.getElementById('giphy').value = '';
+            document.getElementById('select').value = '';
+            document.getElementById('display').innerHTML = '';
+        };
     $('#search').on('click', function(){
-        var inputValue = $('#giphy').val();
-        document.getElementById('giphy').value = '';
-        var select = $('#select').val();
-        document.getElementById('select').value = '';
+        // var reset = function(){
+        //     document.getElementById('giphy').value = '';
+        //     document.getElementById('select').value = '';
+        //     document.getElementById('display').innerHTML = '';
+        // };
+        let inputValue = $('#giphy').val();
+        let select = $('#select').val();
         $.ajax({
             url: "https://api.giphy.com/v1/gifs/search",
             method: 'GET',
@@ -51,6 +60,9 @@
             };
             count();
         });
+    });
+    $('#reset').on('click', function(){
+        reset();
     });
     </script>
 </body>
